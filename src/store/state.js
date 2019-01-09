@@ -9,10 +9,8 @@ export default {
   },
   settings: {},
   menu: [
-    { icon: 'mdi-finance', title: 'Services', link: '/services' },
-    { icon: 'mdi-eye-outline', title: 'Our Vision', link: '/our-vision' },
+    { icon: 'mdi-home', title: 'Home', link: '/' },
     { icon: 'mdi-information', title: 'About', link: '/about' },
-    // { icon: 'mdi-account-multiple', title: 'Team', link: '/team' },
     { icon: 'mdi-contact-mail', title: 'Contact', link: '/contact' }
   ]
 }

@@ -19,7 +19,12 @@ export default [
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     component: loadView('About')
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: loadView('Contact')
   }
 ]
