@@ -32,7 +32,7 @@
           xs12
           pl-3
         >
-          Made with <v-icon small color="red lighten-1">mdi-heart</v-icon> by <a href="#">Vuetify</a> and <a href="#">Aaron Vail</a> | Proudly Powered by <a href="#">Cosmic JS</a>
+          Made with <v-icon small color="red lighten-1">mdi-heart</v-icon> by <a href="https://vuetifyjs.com?ref=cosmicify" target="_blank">Vuetify</a> and <a href="https://www.aaronvail.io?ref=cosmicify" target="_blank">Aaron Vail</a> | Proudly Powered by <a href="https://cosmicjs.com/?ref=SJHUGTXvf" target="_blank">Cosmic JS</a>
         </v-flex>
       </v-layout>
     </v-footer>

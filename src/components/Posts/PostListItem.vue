@@ -1,5 +1,5 @@
 <template lang="html">
-<v-card>
+<v-card hover flat>
   <v-img
     class="white--text"
     height="200px"
@@ -8,26 +8,35 @@
     <v-container fill-height fluid>
       <v-layout fill-height>
         <v-flex xs12 align-end flexbox>
-          <span class="headline">Blog Post Title</span>
+          <span class="headline">{{ article.title }}</span>
         </v-flex>
       </v-layout>
     </v-container>
   </v-img>
   <v-card-title>
     <div>
-      <span class="grey--text">Jan 10th, 2019</span><br>
-      <span>Excerpt Whitehaven Beach Whitsunday Island, Whitsunday Islands</span>
+      <span class="grey--text">{{ article.published_at | date }}</span><br>
+      <span>{{ article.metadata.excerpt }}</span>
     </div>
   </v-card-title>
   <v-card-actions>
-    <v-btn flat color="orange">Share</v-btn>
-    <v-btn flat color="orange">Continue Reading</v-btn>
+    <slot></slot>
+    <!-- <v-btn flat color="green">Continue Reading</v-btn> -->
   </v-card-actions>
 </v-card>
 </template>
 
 <script>
 export default {
+  props: {
+    article: {
+      type: Object,
+      required: false,
+      default: () => ({
+        title: 'Default Post Title'
+      })
+    }
+  }
 }
 </script>
 

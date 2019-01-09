@@ -9,9 +9,9 @@ export default {
   },
   posts: [],
   menu: [
-    { icon: 'mdi-home', title: 'Home', link: '/' },
-    { icon: 'mdi-information', title: 'About', link: '/about' },
-    { icon: 'mdi-contact-mail', title: 'Contact', link: '/contact' }
+    { icon: 'mdi-home-outline', title: 'Home', link: '/' },
+    { icon: 'mdi-information-outline', title: 'About', link: '/about' },
+    { icon: 'mdi-email-outline', title: 'Contact', link: '/contact' }
   ],
   settings: {}
 }
