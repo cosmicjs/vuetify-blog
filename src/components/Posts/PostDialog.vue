@@ -9,8 +9,8 @@
           </v-btn>
           <v-toolbar-title>{{ article.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-btn color="white" outline round flat @click="sheet = true">Share</v-btn>
           <v-toolbar-items>
-            <v-btn dark flat @click="sheet = true">Share</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
@@ -22,15 +22,37 @@
             </v-list-tile-content>
           </v-list-tile> -->
           <v-list-tile avatar>
-            <v-list-tile-content>
-              <h1>more content header</h1>
-              <p>Content</p>
+            <v-list-tile-content v-html="article.content">
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
+        <!-- COMMENTS -->
         <v-list three-line subheader>
-          <v-subheader>Comments</v-subheader>
+        <v-subheader>Comments</v-subheader>
+         <template v-for="(comment, i) in comments">
+           <v-divider
+            :key="i"
+            inset
+           ></v-divider>
+
+           <v-list-tile
+             :key="comment.title"
+             avatar
+           >
+             <v-list-tile-avatar>
+               <img :src="comment.avatar">
+             </v-list-tile-avatar>
+
+             <v-list-tile-content>
+               <v-list-tile-title v-html="comment.title"></v-list-tile-title>
+               <v-list-tile-sub-title v-html="comment.subtitle"></v-list-tile-sub-title>
+             </v-list-tile-content>
+           </v-list-tile>
+         </template>
+       </v-list>
+
+        <!-- <v-list three-line subheader>
           <v-list-tile avatar>
             <v-list-tile-action>
               <v-checkbox v-model="notifications"></v-checkbox>
@@ -58,7 +80,7 @@
               <v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
-        </v-list>
+        </v-list> -->
       </v-card>
     </v-dialog>
 
@@ -111,12 +133,28 @@ export default {
       { icon: 'mdi-linkedin', img: 'hangouts.png', title: 'LinkedIn' },
       { icon: 'mdi-message-text', img: 'messenger.png', title: 'Text Message' },
       { icon: 'mdi-email', img: 'google.png', title: 'Send Email' }
+    ],
+    comments: [
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        title: `<span class='text--primary'>Ali Connors</span>`,
+        subtitle: 'll be in your neighborhood doing errands this weekend. Do you want to hang out?'
+      },
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        title: `<span class='text--primary'>Trevor Hansen</span>`,
+        subtitle: 'Wish I could come, but I\'m out of town this weekend.'
+      },
+      {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        title: `<span class='text--primary'>Sandra Adams</span>`,
+        subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
+      }
     ]
   }),
   created () {
     if (this.open) {
       this.dialog = true
-      console.log('HAS SLUG')
     }
   },
   methods: {
@@ -140,8 +178,16 @@ export default {
     },
     open: {
       type: Boolean,
-      required: false,
+      required: true,
       default: false
+    }
+  },
+  watch: {
+    articleDialog: {
+      immediate: false,
+      handler (open) {
+        this.dialog = open
+      }
     }
   }
 }
