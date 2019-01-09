@@ -113,6 +113,12 @@ export default {
       { icon: 'mdi-email', img: 'google.png', title: 'Send Email' }
     ]
   }),
+  created () {
+    if (this.open) {
+      this.dialog = true
+      console.log('HAS SLUG')
+    }
+  },
   methods: {
     handleDialog () {
       this.dialog = true
@@ -131,6 +137,11 @@ export default {
       default: () => ({
         title: 'Default Post Title'
       })
+    },
+    open: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 }
