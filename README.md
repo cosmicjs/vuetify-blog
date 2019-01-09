@@ -15,9 +15,17 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Required .env Variables
 ```
-npm run test
+VUE_APP_TITLE
+COSMIC_BUCKET
+COSMIC_READ_KEY
+COSMIC_WRITE_KEY
+PORT
+VUE_APP_DOMAIN
+VUE_APP_META_TITLE
+VUE_APP_META_LOGO
+VUE_APP_META_DESC
 ```
 
 ### Lints and fixes files
