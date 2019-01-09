@@ -7,7 +7,7 @@
         indeterminate
       ></v-progress-circular>
     </div>
-    <app-toolbar color="blue lighten-4"></app-toolbar>
+    <app-toolbar color="blue lighten-4" v-if="!loading"></app-toolbar>
     <!-- <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Cosmicify</span>
@@ -23,13 +23,13 @@
       </v-btn>
     </v-toolbar> -->
 
-    <v-content>
+    <v-content v-if="!loading">
       <transition appear name="fade">
         <router-view></router-view>
       </transition>
     </v-content>
 
-    <app-footer></app-footer>
+    <app-footer v-if="!loading"></app-footer>
   </v-app>
 </template>
 
@@ -69,6 +69,9 @@ export default {
     return {
       //
     }
+  },
+  created () {
+    this.$store.dispatch('initCosmic')
   },
   computed: {
     ...mapGetters([

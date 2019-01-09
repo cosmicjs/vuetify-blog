@@ -7,10 +7,11 @@ export default {
     success: false,
     error: false
   },
-  settings: {},
+  posts: [],
   menu: [
     { icon: 'mdi-home', title: 'Home', link: '/' },
     { icon: 'mdi-information', title: 'About', link: '/about' },
     { icon: 'mdi-contact-mail', title: 'Contact', link: '/contact' }
-  ]
+  ],
+  settings: {}
 }

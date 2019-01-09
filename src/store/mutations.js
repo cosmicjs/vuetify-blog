@@ -29,5 +29,8 @@ export default {
       success: false,
       error: false
     }
-  }
+  },
+  SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
+  SET_Settings: (state, payload) => { state.settings = payload },
+  SET_Posts: (state, payload) => { state.posts = payload }
 }
