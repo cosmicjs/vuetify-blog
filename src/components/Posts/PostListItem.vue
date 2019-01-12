@@ -15,8 +15,10 @@
   </v-img>
   <v-card-title>
     <div>
-      <span class="grey--text">{{ article.published_at | date }}</span><br>
-      <span>{{ article.metadata.excerpt }}</span>
+      <span class="grey--text">{{ article.published_at | date }}</span>
+      <p>
+        {{ article.metadata.excerpt | truncate(200) | tailing('...') }}
+      </p>
     </div>
   </v-card-title>
   <v-card-actions>
