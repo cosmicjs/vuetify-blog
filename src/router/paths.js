@@ -18,6 +18,11 @@ export default [
     component: loadView('Home')
   },
   {
+    path: '/post/:id',
+    name: 'Post',
+    component: loadView('Home')
+  },
+  {
     path: '/about',
     name: 'About',
     component: loadView('About')

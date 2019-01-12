@@ -3,8 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12 sm6 lg4 pa-2 v-for="(post) in getPosts" :key="post._id">
         <PostListItem :article="post">
-          <app-post-dialog v-if="requestedArticle == post.slug" :article="post" :open="true"></app-post-dialog>
-          <app-post-dialog v-else :article="post" :open="false"></app-post-dialog>
+          <app-post-dialog :article="post"></app-post-dialog>
         </PostListItem>
       </v-flex>
     </v-layout>
@@ -22,10 +21,6 @@ export default {
     PostListItem
   },
   mounted () {
-    const postSlug = this.$route.query.post
-    if (postSlug) {
-      this.$store.commit('SET_RequestedArticle', true)
-    }
   },
   computed: {
     ...mapGetters([

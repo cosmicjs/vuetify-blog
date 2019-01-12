@@ -8,7 +8,7 @@
         <!-- <img src="../assets/img/tealeafai-small-logo.png" style="max-height:38px;" /> -->
         <v-toolbar-title class="headline text-uppercase">
           <span>Cosmicify</span>
-          <span class="font-weight-light"> MATERIAL BLOG</span>
+          <span class="font-weight-light"> BLOG</span>
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
