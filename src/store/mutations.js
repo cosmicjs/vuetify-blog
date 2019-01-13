@@ -30,8 +30,8 @@ export default {
       error: false
     }
   },
-  SET_RequestedArticle: (state, payload) => { state.requestedArticle = payload },
   SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
   SET_Settings: (state, payload) => { state.settings = payload },
-  SET_Posts: (state, payload) => { state.posts = payload }
+  SET_Posts: (state, payload) => { state.posts = payload },
+  SET_ShareLinks: (state, payload) => { state.shareLinks = payload }
 }

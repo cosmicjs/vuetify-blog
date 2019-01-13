@@ -7,7 +7,7 @@ export default {
     success: false,
     error: false
   },
-  requestedArticle: '',
+  shareLinks: [],
   posts: [],
   menu: [
     { icon: 'mdi-home-outline', title: 'Home', link: '/' },

@@ -9,13 +9,13 @@
           </v-btn>
           <v-toolbar-title>{{ article.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn color="white" outline round flat @click="shareSheet = true">Share</v-btn>
+          <v-btn color="white" outline round flat @click="handleShare(article)">Share</v-btn>
           <v-toolbar-items>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader style="padding-top: 85px;">
-          <v-subheader class="display-xs-only font-weight-light display-1">{{ article.title }}</v-subheader>
-          <v-subheader>{{ article.published_at | date }}</v-subheader>
+          <h1 class="hidden-md-and-up px-3 font-weight-light display-1">{{ article.title }}</h1>
+          <v-subheader>Posted on {{ article.published_at | date }} by {{ article.metadata.author.metadata.your_name }}</v-subheader>
           <!-- <v-list-tile avatar>
             <v-list-tile-content>
               <v-list-tile-title>Content filtering</v-list-tile-title>
@@ -74,9 +74,9 @@
       <v-list>
         <v-subheader>Share via..</v-subheader>
         <v-list-tile
-          v-for="tile in tiles"
-          :key="tile.title"
-          :href="tile.link"
+          v-for="(sharer, i) in getShareLinks"
+          :key="i"
+          :href="sharer.link"
           target="_blank"
         >
           <v-list-tile-avatar>
@@ -85,10 +85,10 @@
                 :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
                 :alt="tile.title"
               > -->
-              <v-icon>{{ tile.icon }}</v-icon>
+              <v-icon>{{ sharer.icon }}</v-icon>
             </v-avatar>
           </v-list-tile-avatar>
-          <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
+          <v-list-tile-title>{{ sharer.title }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-bottom-sheet>
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     dialog: false,
@@ -128,28 +129,9 @@ export default {
     ]
   }),
   computed: {
-    twitterShare () {
-      let sharer = 'https://twitter.com/home?status=Check%20out%20this%20awesome%20article%3A%20'
-      let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
-      return sharer + permalink
-    },
-    linkedInShare () {
-      let sharer = 'https://www.linkedin.com/shareArticle?mini=true&url='
-      let params = '&title=' + this.article.title + '&summary='+ this.article.metadata.excerpt +'&source=Cosmicify'
-      let permalink = process.env.VUE_APP_DOMAIN + this.$route.path + params
-      return sharer + permalink
-    },
-    pinterestShare () {
-      let sharer = 'https://pinterest.com/pin/create/button/?url='
-      let params = '&media='+ 'https://picsum.photos/100/100?random' +'&description='+ this.article.metadata.excerpt
-      let permalink = process.env.VUE_APP_DOMAIN + this.$route.path + params
-      return sharer + permalink
-    },
-    emailShare () {
-      let sharer = 'mailto:?&subject=Take a look at this article&body='
-      let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
-      return sharer + permalink
-    }
+    ...mapGetters([
+      'getShareLinks'
+    ])
   },
   created () {
     if (this.$route.params.id == this.article.slug) {
@@ -162,9 +144,42 @@ export default {
       let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
       return sharer + permalink
     },
+    handleShare (post) {
+      this.shareSheet = true
+      const payload = {
+        route: this.$route.path,
+        post
+      }
+      this.$store.dispatch('buildShareLinks', payload)
+      // let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
+      // // Facebook Share template
+      // let FBsharer = 'https://www.facebook.com/sharer/sharer.php?u='
+      // // Twitter Share template
+      // let tweet = 'https://twitter.com/home?status=Check%20out%20this%20awesome%20article%3A%20'
+      // // LinkedIn Share template
+      // let LinkedIn = 'https://www.linkedin.com/shareArticle?mini=true&url='
+      // let LinkedInParams = '&title=' + post.title + '&summary='+ post.metadata.excerpt +'&source=Cosmicify'
+      // // Pinterest Share template
+      // let Pin = 'https://pinterest.com/pin/create/button/?url='
+      // let PinParams = '&media='+ 'https://picsum.photos/100/100?random' +'&description='+ post.metadata.excerpt
+      // // SMS Share template
+      // let SMS = 'sms://?body=Hey%20check%20this%20out%20'
+      // // Email Share template
+      // let Email = 'mailto:?&subject=Check out this article&body='
+      // // Build Share Links Array
+      // let shareLinks = [
+      //   { icon: 'mdi-facebook', link: FBsharer + permalink, title: 'Facebook' },
+      //   { icon: 'mdi-twitter', link: tweet + permalink, title: 'Twitter' },
+      //   { icon: 'mdi-linkedin', link: LinkedIn + permalink + LinkedInParams, title: 'LinkedIn' },
+      //   { icon: 'mdi-pinterest', link: Pin + permalink + PinParams, title: 'Pinterest' },
+      //   { icon: 'mdi-message-text', link: SMS + permalink, title: 'Text Message' },
+      //   { icon: 'mdi-email', link: Email + permalink, title: 'Send Email' }
+      // ]
+      // // Commit Link URLs to store
+      // this.$store.commit('SET_ShareLinks', shareLinks)
+    },
     handleDialog () {
       this.dialog = true
-      // this.$router.push({query: {post: this.article.slug}})
       this.$router.push('/post/'+this.article.slug)
     },
     handleCloseDialog () {
@@ -175,10 +190,7 @@ export default {
   props: {
     article: {
       type: Object,
-      required: false,
-      default: () => ({
-        title: 'Default Post Title'
-      })
+      required: true
     }
   }
 }
