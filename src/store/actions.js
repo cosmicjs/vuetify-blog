@@ -67,11 +67,12 @@ export default {
   },
   postComment: ({commit}, payload) => {
     commit('LOADING')
-    console.log('payload:', payload)
+    console.log('payload:', payload.content)
     const params = {
       "title": "Title",
       "type_slug": "comments",
       "content": payload.content,
+      "status": "draft",
       "metafields": [
         {
           "type": "text",
@@ -80,25 +81,30 @@ export default {
           "value": payload.name
         },
         {
+          "type": "text",
+          "title": "Email",
+          "key": "email",
+          "value": payload.email
+        },
+        {
           "type": "objects",
           "object_type": "posts",
           "title": "Parent Post",
           "key": "parent_id",
           "value": payload.id
-        },
+        }
       ],
       "options": {
         "slug_field": false,
-        "options.content_editor": true
+        "content_editor": true
       }
     }
 
     cosmic.addObject(params).then(data => {
       console.log(data)
+      commit('SUCCESS')
     }).catch(err => {
         commit('ERROR', err)
     })
-    console.log(params)
-    commit('SUCCESS')
   }
 }

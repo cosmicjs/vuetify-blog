@@ -210,8 +210,13 @@ export default {
   methods: {
     postComment () {
       if (this.$refs.commentForm.validate()) {
-        // console.log(this.newComment)
-        this.$store.dispatch('postComment', { comment: this.newComment, id: this.article._id})
+        this.$store.dispatch('postComment',
+        {
+          id: this.article._id,
+          name: this.newComment.name,
+          email: this.newComment.email,
+          content: this.newComment.content
+        })
       } else { return }
     },
     handleShare (post) {
