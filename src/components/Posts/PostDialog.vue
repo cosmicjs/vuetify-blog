@@ -26,13 +26,18 @@
           row justify-center py-2
           class="text-xs-center">
             <v-responsive max-width="600px">
-              <v-img alt="featured image" src="https://picsum.photos/600/350/?random"></v-img>
+              <v-img :src="article.metadata.featured_image.imgix_url"></v-img>
             </v-responsive>
           </v-layout>
           <v-list-tile-content class="px-3" v-html="article.content">
           </v-list-tile-content>
         </v-list>
         <!-- <v-divider></v-divider> -->
+        <!-- POST TAGS -->
+        <v-list v-if="article.metadata.post_tags" three-line subheader>
+          <v-subheader>Tags</v-subheader>
+          <PostTags :tags="article.metadata.post_tags"></PostTags>
+        </v-list>
         <!-- COMMENTS -->
         <v-list three-line subheader>
         <v-subheader>Comments</v-subheader>
@@ -98,7 +103,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import PostTags from './PostTags'
 export default {
+  components: {
+    PostTags
+  },
   data: () => ({
     dialog: false,
     comments: [
@@ -118,15 +127,7 @@ export default {
         subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
       }
     ],
-    shareSheet: false,
-    tiles: [
-      { icon: 'mdi-facebook', link: 'https://facebook.com', title: 'Facebook' },
-      { icon: 'mdi-twitter', link: 'https://twitter.com', title: 'Twitter' },
-      { icon: 'mdi-linkedin', link: 'https://linkedin.com', title: 'LinkedIn' },
-      { icon: 'mdi-pinterest', link: 'https://pinterest.com', title: 'Pinterest' },
-      { icon: 'mdi-message-text', link: 'sms://+14035550185?body=I%27m%20interested%20in%20your%20product', title: 'Text Message' },
-      { icon: 'mdi-email', link: 'mailto:test@test.com', title: 'Send Email' }
-    ]
+    shareSheet: false
   }),
   computed: {
     ...mapGetters([
