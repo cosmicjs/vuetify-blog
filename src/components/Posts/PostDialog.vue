@@ -65,7 +65,7 @@
        <v-list class="py-0">
          <v-subheader>Post a comment</v-subheader>
        </v-list>
-       <v-form ref="commentForm" v-model="validComment" @submit.prevent="postComment" validation>
+       <v-form ref="commentForm" v-model="validComment" @submit.prevent="postComment()" validation>
          <v-container fluid py-0>
            <v-layout row wrap>
              <v-flex
@@ -210,7 +210,8 @@ export default {
   methods: {
     postComment () {
       if (this.$refs.commentForm.validate()) {
-        console.log(this.newComment)
+        // console.log(this.newComment)
+        this.$store.dispatch('postComment', { comment: this.newComment, id: this.article._id})
       } else { return }
     },
     handleShare (post) {

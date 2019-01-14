@@ -64,5 +64,41 @@ export default {
     // Commit Sharer URLs to store
     commit('SET_ShareLinks', shareLinks)
     // console.log('Set Share Links')
+  },
+  postComment: ({commit}, payload) => {
+    commit('LOADING')
+    console.log('payload:', payload)
+    const params = {
+      "title": "Title",
+      "type_slug": "comments",
+      "content": payload.content,
+      "metafields": [
+        {
+          "type": "text",
+          "title": "Username",
+          "key": "username",
+          "value": payload.name
+        },
+        {
+          "type": "objects",
+          "object_type": "posts",
+          "title": "Parent Post",
+          "key": "parent_id",
+          "value": payload.id
+        },
+      ],
+      "options": {
+        "slug_field": false,
+        "options.content_editor": true
+      }
+    }
+
+    cosmic.addObject(params).then(data => {
+      console.log(data)
+    }).catch(err => {
+        commit('ERROR', err)
+    })
+    console.log(params)
+    commit('SUCCESS')
   }
 }
