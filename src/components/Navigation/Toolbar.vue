@@ -4,11 +4,12 @@
       <v-toolbar-side-icon
       @click.stop="onDrawer"
       class="hidden-md-and-up"></v-toolbar-side-icon>
-      <router-link to="/" exact>
+      <router-link to="/" exact class="black--text">
         <!-- <img src="../assets/img/tealeafai-small-logo.png" style="max-height:38px;" /> -->
         <v-toolbar-title class="headline text-uppercase">
-          <span>Cosmicify</span>
-          <span class="font-weight-light"> BLOG</span>
+          {{ toolbarTitle }}
+          <!-- <span>Cosmicify</span>
+          <span class="font-weight-light"> BLOG</span> -->
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
@@ -46,7 +47,12 @@ export default {
     //
   }),
   computed: {
-    ...mapGetters(['menu'])
+    ...mapGetters([
+      'menu'
+    ]),
+    toolbarTitle () {
+      return this.$store.getters.getSettings.metadata.logo_text
+    }
   },
   methods: {
     onDrawer () {

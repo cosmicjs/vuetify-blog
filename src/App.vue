@@ -7,7 +7,7 @@
         indeterminate
       ></v-progress-circular>
     </div>
-    <app-toolbar color="blue lighten-4" v-if="!loading"></app-toolbar>
+    <app-toolbar color="primary" v-if="!loading"></app-toolbar>
     <!-- <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Cosmicify</span>

@@ -14,5 +14,6 @@ export default {
     { icon: 'mdi-information-outline', title: 'About', link: '/about' },
     { icon: 'mdi-email-outline', title: 'Contact', link: '/contact' }
   ],
-  settings: {}
+  settings: {},
+  socialSettings: {}
 }

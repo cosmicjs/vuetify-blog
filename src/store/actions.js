@@ -5,21 +5,27 @@ export default {
   initCosmic: ({commit}) => {
     commit('LOADING')
     return cosmic.getObjects().then(data => {
+      // Set Settings State
       let settings = data.objects.filter(obj => {
-        return obj.type_slug === 'settings'
+        return obj.slug === 'global'
       })
-      commit('SET_Settings', settings)
+      commit('SET_GlobalSettings', settings[0])
+      const socialSettings = data.objects.filter(obj => {
+        return obj.slug === 'social-profile-icons'
+      })
+      commit('SET_SocialSettings', socialSettings[0])
 
+      // Set Posts Array
       let posts = data.objects.filter(obj => {
         return obj.type_slug === 'posts'
       })
       commit('SET_Posts', posts)
       // commit('SET_Total', articles.length)
 
-      // Set state status SUCCESS
+      // Set App status SUCCESS
       commit('SUCCESS')
     }).catch(err => {
-      // Set State status Error
+      // Set App status Error
       commit('ERROR', err)
     })
   },

@@ -31,7 +31,8 @@ export default {
     }
   },
   SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
-  SET_Settings: (state, payload) => { state.settings = payload },
+  SET_GlobalSettings: (state, payload) => { state.settings = payload },
+  SET_SocialSettings: (state, payload) => { state.socialSettings = payload },
   SET_Posts: (state, payload) => { state.posts = payload },
   SET_ShareLinks: (state, payload) => { state.shareLinks = payload }
 }
