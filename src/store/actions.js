@@ -69,7 +69,7 @@ export default {
     commit('LOADING')
     console.log('payload:', payload.content)
     const params = {
-      "title": "Title",
+      "title": "Comment",
       "type_slug": "comments",
       "content": payload.content,
       "status": "draft",
