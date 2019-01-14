@@ -22,7 +22,11 @@
   export default {
     data: () => ({
       //
-    })
+    }),
+    metaInfo: {
+      title: 'Contact',
+      titleTemplate: '%s | '+process.env.VUE_APP_TITLE
+    }
   }
 </script>
 <style scoped>

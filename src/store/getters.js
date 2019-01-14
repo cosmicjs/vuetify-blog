@@ -6,5 +6,6 @@ export default {
   getPosts: state => { return state.posts },
   loading: state => { return state.status.loading },
   getShareLinks: state => { return state.shareLinks },
-  getSocialSettings: state => { return state.socialSettings }
+  getSocialSettings: state => { return state.socialSettings },
+  getPostComments: state => { return state.postComments }
 }

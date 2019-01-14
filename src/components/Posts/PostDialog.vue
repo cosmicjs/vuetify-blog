@@ -16,12 +16,6 @@
         <v-list three-line subheader style="padding-top: 85px;">
           <h1 class="hidden-md-and-up px-3 font-weight-light display-1">{{ article.title }}</h1>
           <v-subheader>Posted on {{ article.published_at | date }} by {{ article.metadata.author.metadata.your_name }}</v-subheader>
-          <!-- <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Content filtering</v-list-tile-title>
-              <v-list-tile-sub-title>Set the content filtering level to restrict apps that can be downloaded</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile> -->
           <v-layout
           row justify-center py-2
           class="text-xs-center">
@@ -40,15 +34,25 @@
         </v-list>
         <!-- COMMENTS -->
         <v-list three-line subheader>
-        <v-subheader>Comments</v-subheader>
-         <template v-for="(comment, i) in comments">
+        <v-subheader>{{ getPostComments.length }} Comment(s)</v-subheader>
+        <v-alert
+          v-if="getPostComments.length <= 0"
+          :value="true"
+          color="info"
+          icon="info"
+          outline
+          class="mx-3"
+        >
+          Be the first to leave a comment!
+        </v-alert>
+         <template v-for="(comment, i) in getPostComments">
            <v-divider
             :key="i"
             inset
            ></v-divider>
 
            <v-list-tile
-             :key="comment.title"
+             :key="comment._id"
              avatar
            >
              <v-list-tile-avatar>
@@ -56,8 +60,8 @@
              </v-list-tile-avatar>
 
              <v-list-tile-content>
-               <v-list-tile-title v-html="comment.title"></v-list-tile-title>
-               <v-list-tile-sub-title v-html="comment.subtitle"></v-list-tile-sub-title>
+               <v-list-tile-title v-html="comment.metadata.username"></v-list-tile-title>
+               <v-list-tile-sub-title v-html="comment.content"></v-list-tile-sub-title>
              </v-list-tile-content>
            </v-list-tile>
          </template>
@@ -77,7 +81,7 @@
                  prepend-icon="mdi-account"
                  v-model="newComment.name"
                  :rules="nameRules"
-                 :counter="10"
+                 :counter="25"
                  label="First name"
                  required
                ></v-text-field>
@@ -139,10 +143,6 @@
         >
           <v-list-tile-avatar>
             <v-avatar size="32px" tile>
-              <!-- <img
-                :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
-                :alt="tile.title"
-              > -->
               <v-icon>{{ sharer.icon }}</v-icon>
             </v-avatar>
           </v-list-tile-avatar>
@@ -170,7 +170,7 @@ export default {
     validComment: false,
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters'
+      v => v.length <= 25 || 'Name must be less than 25 characters'
     ],
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -184,27 +184,38 @@ export default {
     comments: [
       {
         title: `<span class='text--primary'>Ali Connors</span>`,
-        subtitle: 'll be in your neighborhood doing errands this weekend. Do you want to hang out?'
+        content: 'tester comment',
+        metadata: {
+          username: 'testingdata'
+        }
       },
       {
         title: `<span class='text--primary'>Trevor Hansen</span>`,
-        subtitle: 'Wish I could come, but I\'m out of town this weekend.'
+        content: 'tester comment',
+        metadata: {
+          username: 'testingdata'
+        }
       },
       {
         title: `<span class='text--primary'>Sandra Adams</span>`,
-        subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
+        content: 'tester comment',
+        metadata: {
+          username: 'testingdata'
+        }
       }
     ],
     shareSheet: false
   }),
   computed: {
     ...mapGetters([
-      'getShareLinks'
+      'getShareLinks',
+      'getPostComments'
     ])
   },
   created () {
     if (this.$route.params.id == this.article.slug) {
       this.dialog = true
+      this.$store.dispatch('fetch_PostComments', this.article._id)
     }
   },
   methods: {
@@ -230,6 +241,7 @@ export default {
     handleDialog () {
       this.dialog = true
       this.$router.push('/post/'+this.article.slug)
+      this.$store.dispatch('fetch_PostComments', this.article._id)
     },
     handleCloseDialog () {
       this.dialog = false

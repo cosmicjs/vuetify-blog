@@ -47,7 +47,7 @@ export default {
     const LinkedInParams = '&title=' + post.title + '&summary='+ post.metadata.excerpt +'&source=Cosmicify'
     // Pinterest Share template
     const Pin = 'https://pinterest.com/pin/create/button/?url='
-    const PinParams = '&media='+ 'https://picsum.photos/100/100?random' +'&description='+ post.metadata.excerpt
+    const PinParams = '&media='+ post.metadata.featured_image.imgix_url +'&description='+ post.metadata.excerpt
     // SMS Share template
     const SMS = 'sms://?body=Hey%20check%20this%20out%20'
     // Email Share template
@@ -63,7 +63,22 @@ export default {
     ]
     // Commit Sharer URLs to store
     commit('SET_ShareLinks', shareLinks)
-    // console.log('Set Share Links')
+  },
+  fetch_PostComments: ({commit}, payload) => {
+    //commit('LOADING')
+    // cosmic.getObjects({
+    //   "type": 'comments',
+    //   "status": 'published',
+    //   "sort": 'created_at',
+    //   "filters[connected_to]": payload
+    // }).then(Array => {
+    //   commit('SET_PostComments', Array.objects)
+    //   commit('SUCCESS')
+    // }).catch(err => {
+    //   commit('ERROR', err)
+    // })
+
+    commit('SET_PostComments', payload)
   },
   postComment: ({commit}, payload) => {
     commit('LOADING')
@@ -72,7 +87,7 @@ export default {
       "title": "Comment",
       "type_slug": "comments",
       "content": payload.content,
-      "status": "draft",
+      "status": "published",
       "metafields": [
         {
           "type": "text",
@@ -104,7 +119,7 @@ export default {
       console.log(data)
       commit('SUCCESS')
     }).catch(err => {
-        commit('ERROR', err)
+      commit('ERROR', err)
     })
   }
 }

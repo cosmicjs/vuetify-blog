@@ -31,5 +31,14 @@ export default [
     path: '/contact',
     name: 'Contact',
     component: loadView('Contact')
+  },
+  {
+    path: '/404',
+    name: 'Not Found',
+    component: loadView('404')
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]

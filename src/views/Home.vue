@@ -25,16 +25,8 @@ export default {
   computed: {
     ...mapGetters([
       'loading',
-      'getPosts',
-      'requestedArticle'
+      'getPosts'
     ]),
-    // slugPost () {
-    //   if (this.$route.query.post) {
-    //     this.getPosts.filter(el => {
-    //       return el.slug == this.$route.query.post
-    //     })
-    //   } else { return }
-    // }
   },
   metaInfo: {
     title: 'Home',

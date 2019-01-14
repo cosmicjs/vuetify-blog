@@ -15,5 +15,6 @@ export default {
     { icon: 'mdi-email-outline', title: 'Contact', link: '/contact' }
   ],
   settings: {},
-  socialSettings: {}
+  socialSettings: {},
+  postComments: []
 }
