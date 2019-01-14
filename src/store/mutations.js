@@ -34,5 +34,6 @@ export default {
   SET_GlobalSettings: (state, payload) => { state.settings = payload },
   SET_SocialSettings: (state, payload) => { state.socialSettings = payload },
   SET_Posts: (state, payload) => { state.posts = payload },
-  SET_ShareLinks: (state, payload) => { state.shareLinks = payload }
+  SET_ShareLinks: (state, payload) => { state.shareLinks = payload },
+  SET_comments: (state, payload) => { state.comments = payload }
 }

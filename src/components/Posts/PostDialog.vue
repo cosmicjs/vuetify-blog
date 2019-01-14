@@ -53,7 +53,6 @@
            >
              <v-list-tile-avatar>
                <v-icon color="primary" large>mdi-account-circle-outline</v-icon>
-               <!-- <img :src="comment.avatar"> -->
              </v-list-tile-avatar>
 
              <v-list-tile-content>
@@ -63,6 +62,60 @@
            </v-list-tile>
          </template>
        </v-list>
+       <v-list class="py-0">
+         <v-subheader>Post a comment</v-subheader>
+       </v-list>
+       <v-form ref="commentForm" v-model="validComment" @submit.prevent="postComment" validation>
+         <v-container fluid py-0>
+           <v-layout row wrap>
+             <v-flex
+               xs12
+               md4
+             >
+               <v-text-field
+                 box
+                 prepend-icon="mdi-account"
+                 v-model="newComment.name"
+                 :rules="nameRules"
+                 :counter="10"
+                 label="First name"
+                 required
+               ></v-text-field>
+             </v-flex>
+             <v-flex
+             xs12
+             md4
+             >
+             <v-text-field
+             box
+             prepend-icon="mdi-at"
+             v-model="newComment.email"
+             :rules="emailRules"
+             label="E-mail"
+             required
+             ></v-text-field>
+           </v-flex>
+
+           <v-flex
+             xs12
+             md4
+           >
+             <v-text-field
+               box
+               prepend-icon="mdi-comment-text"
+               v-model="newComment.content"
+               :rules="commentRules"
+               label="Comment"
+               :counter="200"
+               required
+             ></v-text-field>
+             <div  class="text-xs-right">
+               <v-btn type="submit" round outline color="green" :disabled="!validComment">Post Comment</v-btn>
+             </div>
+           </v-flex>
+           </v-layout>
+         </v-container>
+       </v-form>
       </v-card>
     </v-dialog>
     <!-- SHARE MENU -->
@@ -109,20 +162,35 @@ export default {
     PostTags
   },
   data: () => ({
+    newComment: {
+      name: '',
+      email: '',
+      content: ''
+    },
+    validComment: false,
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => v.length <= 10 || 'Name must be less than 10 characters'
+    ],
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+/.test(v) || 'E-mail must be valid'
+    ],
+    commentRules: [
+      v => !!v || 'Comment is required',
+      v => v.length <= 200 || 'Comment must be less than 200 characters'
+    ],
     dialog: false,
     comments: [
       {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
         title: `<span class='text--primary'>Ali Connors</span>`,
         subtitle: 'll be in your neighborhood doing errands this weekend. Do you want to hang out?'
       },
       {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
         title: `<span class='text--primary'>Trevor Hansen</span>`,
         subtitle: 'Wish I could come, but I\'m out of town this weekend.'
       },
       {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
         title: `<span class='text--primary'>Sandra Adams</span>`,
         subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
       }
@@ -140,10 +208,10 @@ export default {
     }
   },
   methods: {
-    facebookShare () {
-      let sharer = 'https://www.facebook.com/sharer/sharer.php?u='
-      let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
-      return sharer + permalink
+    postComment () {
+      if (this.$refs.commentForm.validate()) {
+        console.log(this.newComment)
+      } else { return }
     },
     handleShare (post) {
       this.shareSheet = true
@@ -152,32 +220,6 @@ export default {
         post
       }
       this.$store.dispatch('buildShareLinks', payload)
-      // let permalink = process.env.VUE_APP_DOMAIN + this.$route.path
-      // // Facebook Share template
-      // let FBsharer = 'https://www.facebook.com/sharer/sharer.php?u='
-      // // Twitter Share template
-      // let tweet = 'https://twitter.com/home?status=Check%20out%20this%20awesome%20article%3A%20'
-      // // LinkedIn Share template
-      // let LinkedIn = 'https://www.linkedin.com/shareArticle?mini=true&url='
-      // let LinkedInParams = '&title=' + post.title + '&summary='+ post.metadata.excerpt +'&source=Cosmicify'
-      // // Pinterest Share template
-      // let Pin = 'https://pinterest.com/pin/create/button/?url='
-      // let PinParams = '&media='+ 'https://picsum.photos/100/100?random' +'&description='+ post.metadata.excerpt
-      // // SMS Share template
-      // let SMS = 'sms://?body=Hey%20check%20this%20out%20'
-      // // Email Share template
-      // let Email = 'mailto:?&subject=Check out this article&body='
-      // // Build Share Links Array
-      // let shareLinks = [
-      //   { icon: 'mdi-facebook', link: FBsharer + permalink, title: 'Facebook' },
-      //   { icon: 'mdi-twitter', link: tweet + permalink, title: 'Twitter' },
-      //   { icon: 'mdi-linkedin', link: LinkedIn + permalink + LinkedInParams, title: 'LinkedIn' },
-      //   { icon: 'mdi-pinterest', link: Pin + permalink + PinParams, title: 'Pinterest' },
-      //   { icon: 'mdi-message-text', link: SMS + permalink, title: 'Text Message' },
-      //   { icon: 'mdi-email', link: Email + permalink, title: 'Send Email' }
-      // ]
-      // // Commit Link URLs to store
-      // this.$store.commit('SET_ShareLinks', shareLinks)
     },
     handleDialog () {
       this.dialog = true

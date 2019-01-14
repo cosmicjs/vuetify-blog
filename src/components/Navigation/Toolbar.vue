@@ -5,11 +5,9 @@
       @click.stop="onDrawer"
       class="hidden-md-and-up"></v-toolbar-side-icon>
       <router-link to="/" exact class="black--text">
-        <!-- <img src="../assets/img/tealeafai-small-logo.png" style="max-height:38px;" /> -->
-        <v-toolbar-title class="headline text-uppercase">
+        <img v-if="getSettings.metadata.app_logo.imgix_url" :src="getSettings.metadata.app_logo.imgix_url" style="max-height:38px;" />
+        <v-toolbar-title v-else class="headline text-uppercase">
           {{ toolbarTitle }}
-          <!-- <span>Cosmicify</span>
-          <span class="font-weight-light"> BLOG</span> -->
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
@@ -48,10 +46,11 @@ export default {
   }),
   computed: {
     ...mapGetters([
-      'menu'
+      'menu',
+      'getSettings'
     ]),
     toolbarTitle () {
-      return this.$store.getters.getSettings.metadata.logo_text
+      return this.getSettings.metadata.logo_text
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template lang="html">
-<v-card hover flat>
+<v-card hover flat style="cursor: auto;">
   <v-img
     class="white--text"
     height="200px"

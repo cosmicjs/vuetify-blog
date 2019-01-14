@@ -22,6 +22,12 @@ export default {
       commit('SET_Posts', posts)
       // commit('SET_Total', articles.length)
 
+      // Set Comments Array
+      let comments = data.objects.filter(obj => {
+        return obj.type_slug === 'comments'
+      })
+      commit('SET_comments', comments)
+
       // Set App status SUCCESS
       commit('SUCCESS')
     }).catch(err => {

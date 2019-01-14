@@ -61,9 +61,10 @@ export default {
     ...mapGetters([
       'menu',
       'getSocialSettings',
+      'getSettings'
     ]),
     footerCopyright () {
-      return this.$store.getters.getSettings.metadata.footer_copyright
+      return this.getSettings.metadata.footer_copyright
     },
     enableSocialIcons () {
       return this.getSocialSettings.metadata.enable_social_profile_section
