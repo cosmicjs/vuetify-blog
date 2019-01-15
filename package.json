@@ -1,7 +1,25 @@
 {
   "name": "cosmicify",
-  "version": "0.1.0",
+  "description": "A Cosmic JS + Vue.js + Vuetify Powered Blog App",
+  "version": "1.0.0",
+  "author": {
+    "name": "Aaron Vail",
+    "email": "aaron@aaronvail.com",
+    "url": "https://www.aaronvail.io"
+  },
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/availit/cosmicify.git"
+  },
+  "keywords": [
+    "cosmic",
+    "cosmic js",
+    "vue blog",
+    "vuetify blog",
+    "aaron vail"
+  ],
   "scripts": {
     "start": "vue-cli-service build",
     "serve": "vue-cli-service serve",
@@ -11,9 +29,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "animate.css": "^3.7.0",
     "cosmicjs": "^3.2.14",
-    "eagle.js": "^0.4.4",
     "vue": "^2.5.21",
     "vue-meta": "^1.5.8",
     "vue-router": "^3.0.1",

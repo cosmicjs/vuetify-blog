@@ -12,12 +12,10 @@ import DateFilter from '@/filters/Date'
 // Global Components
 import Toolbar from '@/components/Navigation/Toolbar'
 import PostDialog from '@/components/Posts/PostDialog'
-import FullWidthSection from '@/components/FullWidthSection'
 import Footer from '@/components/Navigation/Footer'
 
 Vue.component('app-toolbar', Toolbar)
 Vue.component('app-post-dialog', PostDialog)
-Vue.component('FullWidthSection', FullWidthSection)
 Vue.component('app-footer', Footer)
 
 Vue.config.productionTip = false
