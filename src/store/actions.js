@@ -64,20 +64,23 @@ export default {
     // Commit Sharer URLs to store
     commit('SET_ShareLinks', shareLinks)
   },
-  fetch_PostComments: ({commit}, payload) => {
-    //commit('LOADING')
-    // cosmic.getObjects({
-    //   "type": 'comments',
-    //   "status": 'published',
-    //   "sort": 'created_at',
-    //   "filters[connected_to]": payload
-    // }).then(Array => {
-    //   commit('SET_PostComments', Array.objects)
-    //   commit('SUCCESS')
-    // }).catch(err => {
-    //   commit('ERROR', err)
-    // })
-
+  // fetch_PostComments: ({commit}, payload) => {
+  //   commit('LOADING')
+  //   cosmic.getObjects({
+  //     "type": 'comments',
+  //     "status": 'published',
+  //     "sort": 'created_at'
+  //     "filters[connected_to]": payload
+  //   }).then(Array => {
+  //     commit('SET_PostComments', Array.objects)
+  //     commit('SUCCESS')
+  //   }).catch(err => {
+  //     commit('ERROR', err)
+  //   })
+  //
+  //   // commit('SET_PostComments', payload)
+  // },
+  filter_PostComments: ({commit}, payload) => {
     commit('SET_PostComments', payload)
   },
   postComment: ({commit}, payload) => {
@@ -116,7 +119,8 @@ export default {
     }
 
     cosmic.addObject(params).then(data => {
-      console.log(data)
+      //console.log(data.object)
+      //console.log('post:', state.postComments)
       commit('SUCCESS')
     }).catch(err => {
       commit('ERROR', err)

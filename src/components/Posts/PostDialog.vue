@@ -181,29 +181,29 @@ export default {
       v => v.length <= 200 || 'Comment must be less than 200 characters'
     ],
     dialog: false,
-    comments: [
-      {
-        title: `<span class='text--primary'>Ali Connors</span>`,
-        content: 'tester comment',
-        metadata: {
-          username: 'testingdata'
-        }
-      },
-      {
-        title: `<span class='text--primary'>Trevor Hansen</span>`,
-        content: 'tester comment',
-        metadata: {
-          username: 'testingdata'
-        }
-      },
-      {
-        title: `<span class='text--primary'>Sandra Adams</span>`,
-        content: 'tester comment',
-        metadata: {
-          username: 'testingdata'
-        }
-      }
-    ],
+    // comments: [
+    //   {
+    //     title: `<span class='text--primary'>Ali Connors</span>`,
+    //     content: 'tester comment',
+    //     metadata: {
+    //       username: 'testingdata'
+    //     }
+    //   },
+    //   {
+    //     title: `<span class='text--primary'>Trevor Hansen</span>`,
+    //     content: 'tester comment',
+    //     metadata: {
+    //       username: 'testingdata'
+    //     }
+    //   },
+    //   {
+    //     title: `<span class='text--primary'>Sandra Adams</span>`,
+    //     content: 'tester comment',
+    //     metadata: {
+    //       username: 'testingdata'
+    //     }
+    //   }
+    // ],
     shareSheet: false
   }),
   computed: {
@@ -215,7 +215,7 @@ export default {
   created () {
     if (this.$route.params.id == this.article.slug) {
       this.dialog = true
-      this.$store.dispatch('fetch_PostComments', this.article._id)
+      this.$store.dispatch('filter_PostComments', this.article._id)
     }
   },
   methods: {
@@ -227,6 +227,8 @@ export default {
           name: this.newComment.name,
           email: this.newComment.email,
           content: this.newComment.content
+        }).then(() => {
+          console.log('Posted New Comment!')
         })
       } else { return }
     },
@@ -241,7 +243,7 @@ export default {
     handleDialog () {
       this.dialog = true
       this.$router.push('/post/'+this.article.slug)
-      this.$store.dispatch('fetch_PostComments', this.article._id)
+      this.$store.dispatch('filter_PostComments', this.article._id)
     },
     handleCloseDialog () {
       this.dialog = false
