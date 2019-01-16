@@ -209,7 +209,8 @@ export default {
   computed: {
     ...mapGetters([
       'getShareLinks',
-      'getPostComments'
+      'getPostComments',
+      'getSettings'
     ])
   },
   created () {
@@ -226,7 +227,8 @@ export default {
           id: this.article._id,
           name: this.newComment.name,
           email: this.newComment.email,
-          content: this.newComment.content
+          content: this.newComment.content,
+          moderated: this.getSettings.metadata.moderated_comments
         }).then(() => {
           console.log('Posted New Comment!')
         })
