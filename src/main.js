@@ -40,5 +40,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
-  created () { console.log('App Title: ' +this.$siteName) }
+  created () {
+    console.log('App Title: ' +this.$siteName)
+  }
 }).$mount('#app')

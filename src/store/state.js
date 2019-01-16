@@ -11,12 +11,13 @@ export default {
   },
   shareLinks: [],
   posts: [],
+  comments: [],
+  postComments: [],
   menu: [
     { icon: 'mdi-home-outline', title: 'Home', link: '/' },
     { icon: 'mdi-information-outline', title: 'About', link: '/about' },
     { icon: 'mdi-email-outline', title: 'Contact', link: '/contact' }
   ],
   settings: {},
-  socialSettings: {},
-  postComments: []
+  socialSettings: {}
 }

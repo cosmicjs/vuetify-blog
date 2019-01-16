@@ -220,14 +220,10 @@ export default {
       }
       this.$store.dispatch('buildShareLinks', payload)
     },
-    handleDialog () {
-      this.postDialog = true
-      this.$router.push('/post/'+this.article.slug)
-      this.$store.dispatch('filter_PostComments', this.article._id)
-    },
     handleCloseDialog () {
       this.postDialog = false
       this.$router.push('/')
+      this.$store.commit('setActivePost', null)
     }
   },
   props: {
@@ -235,6 +231,12 @@ export default {
       type: Object,
       required: true,
       default: null
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.article.title,
+      titleTemplate: '%s | '+process.env.VUE_APP_TITLE
     }
   }
 }
