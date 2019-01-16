@@ -2,6 +2,7 @@
   <v-layout row>
     <v-btn @click.stop="handleDialog()" color="success" flat outline dark>Continue Reading</v-btn>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-flex xs12 md8 offset-md2 lg6 offset-lg3>
       <v-card>
         <v-toolbar dark fixed color="primary">
           <v-btn icon dark @click.stop="handleCloseDialog()">
@@ -74,7 +75,7 @@
            <v-layout row wrap>
              <v-flex
                xs12
-               md4
+               md6
              >
                <v-text-field
                  box
@@ -88,7 +89,7 @@
              </v-flex>
              <v-flex
              xs12
-             md4
+             md6
              >
              <v-text-field
              box
@@ -102,7 +103,6 @@
 
            <v-flex
              xs12
-             md4
            >
              <v-text-field
                box
@@ -113,14 +113,15 @@
                :counter="200"
                required
              ></v-text-field>
-             <div  class="text-xs-right">
-               <v-btn type="submit" round outline color="green" :disabled="!validComment">Post Comment</v-btn>
+             <div class="text-xs-right">
+               <v-btn type="submit" round depressed class="white--text" color="green lighten-1" :disabled="!validComment">Post Comment</v-btn>
              </div>
            </v-flex>
            </v-layout>
          </v-container>
        </v-form>
       </v-card>
+      </v-flex>
     </v-dialog>
     <!-- SHARE MENU -->
     <div class="text-xs-center">
@@ -262,4 +263,7 @@ export default {
 </script>
 
 <style lang="css">
+div.v-dialog {
+  background: rgba(0,0,0,0.5);
+}
 </style>
