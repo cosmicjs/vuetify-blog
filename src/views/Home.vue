@@ -2,10 +2,9 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12 sm6 lg4 pa-2 v-for="(post) in getPosts" :key="post._id">
-        <PostListItem :article="post">
-          <app-post-dialog :article="post"></app-post-dialog>
-        </PostListItem>
+        <PostListItem :article="post"></PostListItem>
       </v-flex>
+      <app-post-dialog v-if="getActivePost" :article="getActivePost"></app-post-dialog>
     </v-layout>
   </v-container>
 </template>
@@ -25,7 +24,8 @@ export default {
   computed: {
     ...mapGetters([
       'loading',
-      'getPosts'
+      'getPosts',
+      'getActivePost'
     ]),
   },
   metaInfo: {

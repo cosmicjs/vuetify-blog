@@ -1,6 +1,8 @@
 // https://vuex.vuejs.org/en/mutations.html
 
 export default {
+  setPostDialog: (state, payload) => { state.postDialog = payload },
+  setActivePost: (state, payload) => { state.activePost = payload },
   setDrawer: (state, payload) => { state.drawer = payload },
   LOADING: (state) => {
     state.status = {

@@ -1,9 +1,8 @@
 <template lang="html">
   <v-layout row>
-    <v-btn @click.stop="handleDialog()" color="success" flat outline dark>Continue Reading</v-btn>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="postDialog" lazy fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-flex xs12 md8 offset-md2 lg6 offset-lg3>
-      <v-card>
+      <v-card v-if="this.article">
         <v-toolbar dark fixed color="primary">
           <v-btn icon dark @click.stop="handleCloseDialog()">
             <v-icon>close</v-icon>
@@ -16,7 +15,7 @@
         </v-toolbar>
         <v-list three-line subheader style="padding-top: 85px;">
           <h1 class="hidden-md-and-up px-3 font-weight-light display-1">{{ article.title }}</h1>
-          <v-subheader>Posted on {{ article.published_at | date }} by {{ article.metadata.author.metadata.your_name }}</v-subheader>
+          <v-subheader v-if="article.metadata.author">Posted on {{ article.published_at | date }} by {{ article.metadata.author.metadata.your_name }}</v-subheader>
           <v-layout
           row justify-center py-2
           class="text-xs-center">
@@ -182,29 +181,6 @@ export default {
       v => v.length <= 200 || 'Comment must be less than 200 characters'
     ],
     dialog: false,
-    // comments: [
-    //   {
-    //     title: `<span class='text--primary'>Ali Connors</span>`,
-    //     content: 'tester comment',
-    //     metadata: {
-    //       username: 'testingdata'
-    //     }
-    //   },
-    //   {
-    //     title: `<span class='text--primary'>Trevor Hansen</span>`,
-    //     content: 'tester comment',
-    //     metadata: {
-    //       username: 'testingdata'
-    //     }
-    //   },
-    //   {
-    //     title: `<span class='text--primary'>Sandra Adams</span>`,
-    //     content: 'tester comment',
-    //     metadata: {
-    //       username: 'testingdata'
-    //     }
-    //   }
-    // ],
     shareSheet: false
   }),
   computed: {
@@ -212,19 +188,20 @@ export default {
       'getShareLinks',
       'getPostComments',
       'getSettings'
-    ])
-  },
-  created () {
-    if (this.$route.params.id == this.article.slug) {
-      this.dialog = true
-      this.$store.dispatch('filter_PostComments', this.article._id)
+    ]),
+    postDialog: {
+      get () {
+        return this.$store.state.postDialog
+      },
+      set (val) {
+        this.$store.commit('setPostDialog', val)
+      }
     }
   },
   methods: {
     postComment () {
       if (this.$refs.commentForm.validate()) {
-        this.$store.dispatch('postComment',
-        {
+        this.$store.dispatch('postComment', {
           id: this.article._id,
           name: this.newComment.name,
           email: this.newComment.email,
@@ -244,19 +221,20 @@ export default {
       this.$store.dispatch('buildShareLinks', payload)
     },
     handleDialog () {
-      this.dialog = true
+      this.postDialog = true
       this.$router.push('/post/'+this.article.slug)
       this.$store.dispatch('filter_PostComments', this.article._id)
     },
     handleCloseDialog () {
-      this.dialog = false
+      this.postDialog = false
       this.$router.push('/')
     }
   },
   props: {
     article: {
       type: Object,
-      required: true
+      required: true,
+      default: null
     }
   }
 }

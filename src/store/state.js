@@ -2,6 +2,8 @@
 
 export default {
   drawer: false,
+  postDialog: false,
+  activePost: null,
   status: {
     loading: false,
     success: false,
