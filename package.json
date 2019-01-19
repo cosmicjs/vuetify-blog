@@ -17,19 +17,23 @@
     "cosmic",
     "cosmic js",
     "vue blog",
+    "vue js blog",
     "vuetify blog",
+    "express",
     "aaron vail"
   ],
   "scripts": {
-    "start": "vue-cli-service build",
+    "start": "node app.js",
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "dev-build": "vue-cli-service build --mode development",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "postinstall": "vue-cli-service build"
   },
   "dependencies": {
     "cosmicjs": "^3.2.14",
+    "express": "^4.16.4",
     "vue": "^2.5.21",
     "vue-meta": "^1.5.8",
     "vue-router": "^3.0.1",
