@@ -214,15 +214,12 @@ export default {
     },
     handleShare (post) {
       this.shareSheet = true
-      const payload = {
-        route: this.$route.path,
-        post
-      }
+      const payload = { route: this.$route.path, post }
       this.$store.dispatch('buildShareLinks', payload)
     },
     handleCloseDialog () {
       this.postDialog = false
-      this.$router.push('/')
+      this.$router.go(-1)
       this.$store.commit('setActivePost', null)
     }
   },
