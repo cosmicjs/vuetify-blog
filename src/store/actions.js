@@ -74,7 +74,7 @@ export default {
       "title": "Comment",
       "type_slug": "comments",
       "content": payload.content,
-      "status": payload.moderated ? "published" : "draft",
+      "status": payload.moderated ? "draft" : "published",
       "metafields": [
         {
           "type": "text",
