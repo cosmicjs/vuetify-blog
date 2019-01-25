@@ -1,4 +1,8 @@
-# cosmicify
+# Vuetify Blog
+![Vuetify Blog](https://cosmic-s3.imgix.net/50272370-20c1-11e9-9cb6-6302bd0b9978-vuetify-blog.jpg?w=1200)
+### [View Demo](https://cosmicjs.com/apps/vuetify-blog)
+
+A beautiful blog built using Vue, Vuetify, powered by the Cosmic JS Headless CMS.
 
 ## Project setup
 ```
